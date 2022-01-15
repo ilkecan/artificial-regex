@@ -1,0 +1,16 @@
+---
+name: "check"
+# yamllint disable-line rule:truthy
+on: [
+  pull_request,
+  push,
+]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - uses: cachix/install-nix-action@v16
+      - run: nix develop && check
+      - run: nix flake check
