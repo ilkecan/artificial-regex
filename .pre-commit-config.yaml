@@ -95,6 +95,15 @@ repos:
           all,
         ]
 
+      - id: cabal-test
+        name: cabal-test
+        entry: cabal test
+        language: system
+        pass_filenames: false
+        args: [
+          all,
+        ]
+
       - id: stan
         name: stan
         entry: stan
