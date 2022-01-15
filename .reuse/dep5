@@ -1,0 +1,31 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: artificial-regex
+Upstream-Contact: ilkecan <ilkecan@protonmail.com>
+Source: https://github.com/ilkecan/artificial-regex
+
+Files:
+    *.hs
+    *.nix
+    scripts/*
+Copyright: 2022 ilkecan <ilkecan@protonmail.com>
+License: MPL-2.0
+
+Files:
+    *.cabal
+    *.dhall
+    *.gitignore
+    *.ini
+    *.md
+    *.toml
+    *.yaml
+    .editorconfig
+    .envrc
+    cabal.project
+Copyright: 2022 ilkecan <ilkecan@protonmail.com>
+License: CC-BY-SA-4.0
+
+Files:
+    flake.lock
+    the.regexes
+Copyright: 2022 ilkecan <ilkecan@protonmail.com>
+License: Unlicense

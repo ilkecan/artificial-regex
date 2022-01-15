@@ -1,0 +1,169 @@
+---
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+default_stages:
+  - commit
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: reuse
+        name: reuse
+        entry: reuse lint
+        language: system
+        pass_filenames: false
+
+      # - id: nix-linter
+      #   name: nix-linter
+      #   entry: nix-linter
+      #   language: system
+      #   types:
+      #     - nix
+      #   pass_filenames: true
+
+      - id: statix
+        name: statix
+        entry: statix check
+        language: system
+        pass_filenames: false
+
+      - id: deadnix
+        name: deadnix
+        entry: deadnix
+        language: system
+        types:
+          - nix
+        pass_filenames: true
+        args: [
+          --no-lambda-arg,
+          --fail,
+        ]
+
+      - id: shellcheck
+        name: shellcheck
+        entry: shellcheck
+        language: system
+        types:
+          - shell
+        pass_filenames: true
+
+      - id: ormolu
+        name: ormolu
+        entry: ormolu
+        language: system
+        types:
+          - haskell
+        pass_filenames: true
+        args: [
+          --mode=inplace,
+          --check-idempotence,
+        ]
+
+      - id: cabal-fmt
+        name: cabal-fmt
+        entry: cabal-fmt
+        language: system
+        files: ^.*.cabal$
+        pass_filenames: true
+        args: [
+          --Werror,
+          --inplace,
+        ]
+
+      - id: cabal-build
+        name: cabal-build
+        entry: cabal build
+        language: system
+        pass_filenames: false
+        args: [
+          all,
+        ]
+
+      - id: stan
+        name: stan
+        entry: stan
+        language: system
+        pass_filenames: false
+        args: [
+          remove, --directory=./dist-newstyle",
+          --cabal-file-path=./artificial-regex.cabal,
+          --hiedir=./dist-newstyle,
+          --short,
+        ]
+        # currently exits with zero when there is a warning
+        # see: https://github.com/kowainik/stan/issues/350
+        verbose: true
+
+      - id: weeder
+        name: weeder
+        entry: weeder
+        language: system
+        pass_filenames: false
+        args: [
+          --hie-directory=./dist-newstyle,
+        ]
+
+      - id: hlint
+        name: hlint
+        entry: hlint
+        language: system
+        pass_filenames: false
+        args: [
+          --threads,
+          --color,
+          .,
+        ]
+
+      - id: scan
+        name: scan
+        entry: scan
+        language: system
+        types:
+          - haskell
+        exclude: ^test/.*$
+        pass_filenames: true
+        args: [
+          --check-comments=False,
+          --check-spacing=False,
+          --join-comments=False,
+        ]
+        # always exits with zero
+        verbose: true
+
+      - id: shfmt
+        name: shfmt
+        entry: shfmt
+        language: system
+        types:
+          - shell
+        pass_filenames: true
+        args: [
+          -w,
+        ]
+
+      - id: yamllint
+        name: yamllint
+        entry: yamllint
+        language: system
+        types:
+          - yaml
+        pass_filenames: true
+        args: [
+          --strict,
+        ]

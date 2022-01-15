@@ -1,0 +1,6 @@
+---
+# https://github.com/ndmitchell/hlint
+
+- arguments: [
+  --color,
+]

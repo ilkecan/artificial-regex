@@ -1,0 +1,7 @@
+ignore = [
+  # src/Regex.hs
+  { id = "OBS-STAN-0020-bmgZNX-115:35" },
+  { id = "OBS-STAN-0020-bmgZNX-90:35" },
+  { id = "OBS-STAN-0105-bmgZNX-153:17" },
+  { id = "OBS-STAN-0106-bmgZNX-152:16" },
+]

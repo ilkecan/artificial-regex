@@ -1,0 +1,54 @@
+cabal-version: 3.0
+name:          artificial-regex
+version:       0.1.0.0
+synopsis:      Artificial - Regex fun
+description:
+  Given a path of file where each line is syntactical subset of regex as the
+  first command-line argument, tranforms each regex to the number of words
+  matched by that regex, the regex itself, and the simplified version of the
+  regex as a 3-tuple and return them as a list sorted by the number of words
+  matched in ascending order.
+
+license:       MPL-2.0
+author:        ilkecan
+maintainer:    ilkecan@protonmail.com
+
+common shared-properties
+  default-language: Haskell2010
+  build-depends:    base
+  ghc-options:
+    -Wall -Wcompat -Werror -Wincomplete-record-updates
+    -Wincomplete-uni-patterns -Wredundant-constraints -fwrite-ide-info
+
+library
+  import:          shared-properties
+  hs-source-dirs:  src
+  exposed-modules: Regex
+  build-depends:
+    , bimap
+    , extra
+
+executable artificial-regex
+  import:         shared-properties
+  hs-source-dirs: app
+  main-is:        Main.hs
+  build-depends:  artificial-regex
+
+test-suite artificial-regex-test
+  import:         shared-properties
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is:        Driver.hs
+  other-modules:
+    CountMatched
+    ParseRegex
+    SimplifyRegex
+    Solve
+    UnparseRegex
+
+  build-depends:
+    , artificial-regex
+    , tasty
+    , tasty-discover
+    , tasty-hunit
+    , tasty-quickcheck
