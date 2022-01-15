@@ -141,7 +141,8 @@ simplifyEnclosed shape = concatMap $ f . simplifyRegex
     f (Bracket shape' regexes') | shape' == shape = regexes'
     f regex = [regex]
 
--- | Given a regex, returns the number of different strings it can match.
+-- | Given a simplified regex, returns the number of different strings it can
+-- match.
 countMatched :: Regex -> Int
 countMatched Empty = 0
 countMatched (Letter _) = 1
